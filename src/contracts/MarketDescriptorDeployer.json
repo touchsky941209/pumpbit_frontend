@@ -1,0 +1,95 @@
+[
+    {
+        "inputs": [],
+        "name": "Create2EmptyBytecode",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Create2FailedDeployment",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "needed",
+                "type": "uint256"
+            }
+        ],
+        "name": "Create2InsufficientBalance",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            }
+        ],
+        "name": "MarketDescriptorAlreadyDeployed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "SymbolMustNotBeEmpty",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "contract MarketDescriptor",
+                "name": "descriptor",
+                "type": "address"
+            }
+        ],
+        "name": "MarketDescriptorDeployed",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_symbol",
+                "type": "string"
+            }
+        ],
+        "name": "deploy",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            }
+        ],
+        "name": "descriptors",
+        "outputs": [
+            {
+                "internalType": "contract MarketDescriptor",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

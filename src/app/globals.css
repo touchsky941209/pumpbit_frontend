@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Background Colors */
+  --pumpbit-bg: 231, 13%, 11%;
+  --foreground: 0, 0%, 100%;
+  --primary: 247, 54%, 60%;
+  --secondary: 266, 100%, 8%, 0.3;
+  --hover-nav: 247, 100%, 77%, 1;
+
+  /* Black and White */
+  --white: 0, 0%, 100%;
+
+  /* Semantic Colors */
+  --success: 154, 84%, 48%;
+  --danger: 349, 80%, 59%;
+  --warning: 71, 59%, 61%;
+
+  /* Card Colors */
+  --card: 0, 0%, 100%, 0.06;
+
+  /* Border Colors */
+  --border: 218, 10%, 55%, 0.3;
+
+  /* Text Colors */
+  --text-primary: 270, 100%, 78%;
+  --text-secondary: 218, 10%, 55%;
+  --text: 295, 100%, 79%;
+
+  /* Button Background Colors */
+  --button-primary-bg: var(--primary);
+  --button-secondary-bg: 0, 0%, 30%;
+  --button-tab-bg: 252, 100%, 50%, 0.2;
+
+  /* Pop Over bg color */
+  --popover-bg: 256, 100%, 8%;
+  /* Background Gradients */
+  --gradient-start: 180deg, rgba(111, 98, 208, 0.3) 0%,
+    rgba(58, 42, 165, 0.3) 100%;
+  --gradient-stop: 0deg, #000 0%, #000 100%;
+}
+.background-menu {
+  background-color: #0a0027;
+}
+.background {
+  height: 100vh;
+}
+.custom-text {
+  color: rgba(255, 255, 255, 0.06);
+  text-shadow: 12px 12px 36px hsla(295, 100%, 79%, 0.2);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: hsla(259, 100%, 88%, 1);
+}
+
+.ju367v7t {
+  background-color: hsl(247, 54%, 60%) !important;
+  border-radius: 100px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.ju367v7r {
+  background-color: rgb(32 34 41 / 1) !important;
+}
+
+.ju367v7r .ju367v1p .ju367v6 {
+  display: none !important;
+}
+
+.ju367v7r svg {
+  color: white !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .ju367v7t {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 2px 8px !important ;
+  }
+
+  .ju367v7t::before {
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 5px !important;
+  }
+}
+
+.ju367v7t::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("/assets/iconButton.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+@layer base {
+  body {
+    @apply text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.custom-text {
+  text-shadow: 12px 12px 36px rgba(247, 150, 255, 0.2);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ab96ff;
+}
+
+/* styles.css */
+.gradient-text {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.06)
+    ),
+    linear-gradient(304.69deg, #513bd8 26.59%, #9789ff 70.51%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hide-arrows::-webkit-outer-spin-button,
+.hide-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hide-arrows {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,887 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "contract IEFC",
+                "name": "_EFC",
+                "type": "address"
+            },
+            {
+                "internalType": "contract IMarketManager",
+                "name": "_marketManager",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "target",
+                "type": "address"
+            }
+        ],
+        "name": "AddressEmptyCode",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "AddressInsufficientBalance",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CallerUnauthorized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "FailedInnerCall",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Forbidden",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "LiquidatorAlreadyRegistered",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "LiquidatorNotRegistered",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "expectedOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnerMismatch",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginAlreadyApproved",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginAlreadyRegistered",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginNotApproved",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginNotRegistered",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            }
+        ],
+        "name": "SafeERC20FailedOperation",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousGov",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newGov",
+                "type": "address"
+            }
+        ],
+        "name": "ChangeGovStarted",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousGov",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newGov",
+                "type": "address"
+            }
+        ],
+        "name": "GovChanged",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "LiquidatorRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "LiquidatorUnregistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginApproved",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginRevoked",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "PluginUnregistered",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "EFC",
+        "outputs": [
+            {
+                "internalType": "contract IEFC",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "acceptGov",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_plugin",
+                "type": "address"
+            }
+        ],
+        "name": "approvePlugin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newGov",
+                "type": "address"
+            }
+        ],
+        "name": "changeGov",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "gov",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_plugin",
+                "type": "address"
+            }
+        ],
+        "name": "isPluginApproved",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "isRegisteredLiquidator",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "marketManager",
+        "outputs": [
+            {
+                "internalType": "contract IMarketManager",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "pendingGov",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "Side",
+                "name": "_side",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_sizeDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "address",
+                "name": "_receiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginClosePositionByLiquidator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_referralToken",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_receiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginCollectReferralFee",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_liquidityDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "address",
+                "name": "_receiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginDecreaseLiquidationFundPosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_marginDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_liquidityDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "address",
+                "name": "_receiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginDecreaseLiquidityPosition",
+        "outputs": [
+            {
+                "internalType": "uint128",
+                "name": "marginAfter",
+                "type": "uint128"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "Side",
+                "name": "_side",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_marginDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_sizeDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "address",
+                "name": "_receiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginDecreasePosition",
+        "outputs": [
+            {
+                "internalType": "uint160",
+                "name": "tradePriceX96",
+                "type": "uint160"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_liquidityDelta",
+                "type": "uint128"
+            }
+        ],
+        "name": "pluginIncreaseLiquidationFundPosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_marginDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_liquidityDelta",
+                "type": "uint128"
+            }
+        ],
+        "name": "pluginIncreaseLiquidityPosition",
+        "outputs": [
+            {
+                "internalType": "uint128",
+                "name": "marginAfter",
+                "type": "uint128"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "Side",
+                "name": "_side",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_marginDelta",
+                "type": "uint128"
+            },
+            {
+                "internalType": "uint128",
+                "name": "_sizeDelta",
+                "type": "uint128"
+            }
+        ],
+        "name": "pluginIncreasePosition",
+        "outputs": [
+            {
+                "internalType": "uint160",
+                "name": "tradePriceX96",
+                "type": "uint160"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeReceiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginLiquidateLiquidityPosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            },
+            {
+                "internalType": "Side",
+                "name": "_side",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeReceiver",
+                "type": "address"
+            }
+        ],
+        "name": "pluginLiquidatePosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IMarketDescriptor",
+                "name": "_market",
+                "type": "address"
+            }
+        ],
+        "name": "pluginSampleAndAdjustFundingRate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IERC20",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "pluginTransfer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract IERC721",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "pluginTransferNFT",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "registerLiquidator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_plugin",
+                "type": "address"
+            }
+        ],
+        "name": "registerPlugin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "plugin",
+                "type": "address"
+            }
+        ],
+        "name": "registeredPlugins",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_plugin",
+                "type": "address"
+            }
+        ],
+        "name": "revokePlugin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_liquidator",
+                "type": "address"
+            }
+        ],
+        "name": "unregisterLiquidator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_plugin",
+                "type": "address"
+            }
+        ],
+        "name": "unregisterPlugin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

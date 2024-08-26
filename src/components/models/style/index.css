@@ -1,0 +1,45 @@
+.stage {
+    width: 100%;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot-typing {
+    position: relative;
+    left: -9999px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #000000;
+    color: #000000;
+    box-shadow: 9984px 0 0 0 #000000, 9999px 0 0 0 #000000, 10014px 0 0 0 #000000;
+    animation: dot-typing 0.5s infinite linear;
+}
+
+@keyframes dot-typing {
+    0% {
+        box-shadow: 9984px 0 0 0 #000000, 9999px 0 0 0 #000000, 10014px 0 0 0 #000000;
+    }
+
+    20% {
+        box-shadow: 9984px -5px 0 0 #000000, 9999px 0 0 0 #000000, 10014px 0 0 0 #000000;
+    }
+
+    40% {
+        box-shadow: 9984px -5px 0 0 #000000, 9999px -5px 0 0 #000000, 10014px 0 0 0 #000000;
+    }
+
+    60% {
+        box-shadow: 9984px 0 0 0 #000000, 9999px -5px 0 0 #000000, 10014px -5px 0 0 #000000;
+    }
+
+    80% {
+        box-shadow: 9984px 0 0 0 #000000, 9999px 0 0 0 #000000, 10014px -5px 0 0 #000000;
+    }
+
+    100% {
+        box-shadow: 9984px 0 0 0 #000000, 9999px 0 0 0 #000000, 10014px 0px 0 0 #000000;
+    }
+}
